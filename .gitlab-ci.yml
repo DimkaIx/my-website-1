@@ -1,1 +1,17 @@
+# Визначаємо етапи
+stages:
+  - deploy
+
+# Робота для публікації на GitLab Pages
+pages:
+  stage: deploy
+  image: alpine:latest          # Контейнер для виконання команд
+  script:
+    - mkdir -p public           # Створюємо папку public
+    - cp -r site/* public/      # Копіюємо файли сайту з site/ у public/
+  artifacts:
+    paths:
+      - public                  # GitLab Pages бере файли з public/
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"  # Публікуємо тільки з master
 
